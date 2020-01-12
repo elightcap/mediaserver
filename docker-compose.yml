@@ -188,6 +188,27 @@ services:
             traefik.http.routers.deluge.tls.certresolver: tlschallenge
             traefik.http.routers.deluge.rule: Host(`deluge.${ACME_DOMAIN}`)
 
+    # https://hub.docker.com/r/linuxserver/jackett/
+    jackett:
+        container_name: jackett
+        image: linuxserver/jackett:latest
+        restart: unless-stopped
+        environment:
+            PUID: '${PUID}'
+            PGID: '${PGID}'
+            TZ: '${TZ}'
+        networks:
+            - traefik
+        volumes:
+            - '${CONFIG_DIR}/jackett:/config'
+            - '${DOWNLOADS_DIR}:/downloads'
+        labels:
+            traefik.enable: true
+            traefik.docker.network: traefik
+            traefik.http.routers.jackett.entrypoints: https
+            traefik.http.routers.jackett.tls.certresolver: tlschallenge
+            traefik.http.routers.jackett.rule: Host(`jackett.${ACME_DOMAIN}`)
+
     # https://hub.docker.com/_/traefik/
     traefik:
         container_name: traefik
