@@ -211,7 +211,7 @@ services:
             traefik.http.routers.jackett.entrypoints: https
             traefik.http.routers.jackett.tls.certresolver: tlschallenge
             traefik.http.routers.jackett.rule: Host(`jackett.${ACME_DOMAIN}`)
-            traefik.http.routers.jackett.middlewares: secureheaders, basicauth
+            
 
 # Frontend
     web:
